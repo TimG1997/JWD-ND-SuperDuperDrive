@@ -6,16 +6,12 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
 public class AuthenticationService implements AuthenticationProvider {
-
-    private static final ArrayList<GrantedAuthority> NO_AUTHORITIES = new ArrayList<>();
-
     private final UserMapper userMapper;
     private final HashService hashService;
 
@@ -27,19 +23,19 @@ public class AuthenticationService implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
+        String password = authentication.getCredentials().toString();
 
-        User user = this.userMapper.getUser(username);
+        User user = userMapper.getUser(username);
 
         if (user != null) {
-            String password = authentication.getCredentials().toString();
-            String hashedPassword = this.hashService.getHashedValue(password, user.getSalt());
+            String encodedSalt = user.getSalt();
+            String hashedPassword = hashService.getHashedValue(password, encodedSalt);
 
-            if(user.getPassword().equals(hashedPassword)){
-                return new UsernamePasswordAuthenticationToken(username, password, NO_AUTHORITIES);
+            if (user.getPassword().equals(hashedPassword)) {
+                return new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
             }
         }
 
-        // authentication wasn't successful
         return null;
     }
 
@@ -47,4 +43,5 @@ public class AuthenticationService implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
+
 }
