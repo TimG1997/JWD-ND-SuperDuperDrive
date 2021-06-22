@@ -13,17 +13,17 @@ public class FileService {
     }
 
     public boolean addFile(File file) {
-        Integer rowsAffected = fileMapper.insert(file);
+        Integer rowsAffected = fileMapper.insertFile(file);
         return rowsAffected > 0;
     }
 
     public boolean deleteFile(Integer id, Integer userId){
-        Integer rowsAffected = fileMapper.delete(id, userId);
+        Integer rowsAffected = fileMapper.deleteFile(id, userId);
         return rowsAffected > 0;
     }
 
     public File[] getFiles(int userId) {
-        return fileMapper.getFileNames(userId);
+        return fileMapper.getFiles(userId);
     }
 
     public File getFile(Integer id) {

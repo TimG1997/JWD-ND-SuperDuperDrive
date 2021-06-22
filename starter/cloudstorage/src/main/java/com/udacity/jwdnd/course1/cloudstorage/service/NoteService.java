@@ -20,7 +20,7 @@ public class NoteService {
     }
 
     public boolean updateNote(Note note){
-        int rowsAffected = this.noteMapper.update(note);
+        int rowsAffected = this.noteMapper.updateNote(note);
         return rowsAffected > 0;
     }
 
@@ -29,7 +29,7 @@ public class NoteService {
     }
 
     public boolean deleteNote(Integer id, Integer userId) {
-        int rowsAffected = this.noteMapper.delete(id, userId);
+        int rowsAffected = this.noteMapper.deleteNote(id, userId);
         return rowsAffected > 0;
     }
 }
