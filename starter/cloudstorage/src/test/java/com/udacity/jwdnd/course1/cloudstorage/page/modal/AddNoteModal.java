@@ -26,8 +26,12 @@ public class AddNoteModal extends NotesTab {
     public ResultPage addNewNote(String title, String description){
         WebDriverWait wait = new WebDriverWait(getDriver(), 2);
 
-        wait.until(ExpectedConditions.elementToBeClickable(this.noteTitleInput)).sendKeys(title);
-        wait.until(ExpectedConditions.elementToBeClickable(this.noteDescriptionInput)).sendKeys(description);
+        wait.until(ExpectedConditions.elementToBeClickable(this.noteTitleInput)).clear();
+        this.noteTitleInput.sendKeys(title);
+
+        wait.until(ExpectedConditions.elementToBeClickable(this.noteDescriptionInput)).clear();
+        this.noteDescriptionInput.sendKeys(description);
+
         wait.until(ExpectedConditions.elementToBeClickable(this.saveNoteChangesButton)).click();
 
         return new ResultPage(getDriver());

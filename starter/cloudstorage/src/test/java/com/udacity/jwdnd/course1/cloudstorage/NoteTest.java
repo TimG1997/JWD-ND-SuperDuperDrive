@@ -5,18 +5,20 @@ import com.udacity.jwdnd.course1.cloudstorage.page.ResultPage;
 import com.udacity.jwdnd.course1.cloudstorage.page.modal.AddNoteModal;
 import com.udacity.jwdnd.course1.cloudstorage.page.tab.NotesTab;
 import com.udacity.jwdnd.course1.cloudstorage.utils.NavigationHelper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.TimeoutException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NoteTest extends AbstractUiTest{
 
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
-    private static final String NOTE_TITLE = "Note-Title";
-    private static final String NOTE_DESCRIPTION = "Note-Description";
+    private static final String ORIGINAL_NOTE_TITLE = "Note-Title";
+    private static final String ORIGINAL_NOTE_DESCRIPTION = "Note-Description";
+    private static final String EDITED_NOTE_TITLE = "New-Note-Title";
+    private static final String EDITED_NOTE_DESCRIPTION = "New-Note-Description";
 
     private NavigationHelper navigationHelper;
 
@@ -26,20 +28,51 @@ public class NoteTest extends AbstractUiTest{
     }
 
     @Test
-    public void given_correct_data_should_create_note(){
+    public void given_correct_data_should_be_able_to_create_edit_and_delete_note(){
+        testCreateNote();
+
+        testEditNote();
+
+        testDeleteNote();
+    }
+
+    private void testDeleteNote() {
+        NotesTab notesTab = new NotesTab(getDriver());
+        ResultPage resultPage = notesTab.clickDeleteNoteButton();
+        resultPage.clickContinueLink();
+
+        // notes table is not present
+        assertThrows(TimeoutException.class, () -> notesTab.getNotesTable().getText().contains(EDITED_NOTE_DESCRIPTION));
+    }
+
+    private void testEditNote() {
+        NotesTab notesTab = new NotesTab(getDriver());
+        AddNoteModal addNoteModal = notesTab.clickEditNoteButton();
+        ResultPage resultPage = addNoteModal.addNewNote(EDITED_NOTE_TITLE, EDITED_NOTE_DESCRIPTION);
+
+        assertTrue(resultPage.getResultSuccessContainer().isDisplayed());
+
+        HomePage homePage = resultPage.clickContinueLink();
+        notesTab = homePage.clickOnNotesTab();
+
+        assertTrue(notesTab.getNotesTable().getText().contains(EDITED_NOTE_TITLE));
+        assertTrue(notesTab.getNotesTable().getText().contains(EDITED_NOTE_DESCRIPTION));
+    }
+
+    private void testCreateNote() {
         HomePage homePage = this.navigationHelper.signUpLoginGoToHomePage(USERNAME, PASSWORD);
         NotesTab notesTab = homePage.clickOnNotesTab();
 
         AddNoteModal addNoteModal = notesTab.clickAddNoteButton();
-        ResultPage resultPage = addNoteModal.addNewNote(NOTE_TITLE, NOTE_DESCRIPTION);
+        ResultPage resultPage = addNoteModal.addNewNote(ORIGINAL_NOTE_TITLE, ORIGINAL_NOTE_DESCRIPTION);
 
         assertTrue(resultPage.getResultSuccessContainer().isDisplayed());
 
         homePage = resultPage.clickContinueLink();
         notesTab = homePage.clickOnNotesTab();
 
-        assertTrue(notesTab.getNotesTable().getText().contains(NOTE_TITLE));
-        assertTrue(notesTab.getNotesTable().getText().contains(NOTE_DESCRIPTION));
+        assertTrue(notesTab.getNotesTable().getText().contains(ORIGINAL_NOTE_TITLE));
+        assertTrue(notesTab.getNotesTable().getText().contains(ORIGINAL_NOTE_DESCRIPTION));
     }
 
 }

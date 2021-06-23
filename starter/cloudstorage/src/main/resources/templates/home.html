@@ -92,6 +92,7 @@
                                     Edit
                                 </button>
                                 <a class="btn btn-danger"
+                                   id="buttonNoteDelete"
                                    th:href="@{/notes/delete/{id}(id=${note.getId()})}">Delete</a>
                             </td>
                             <th scope="row" th:text="${note.getTitle()}"></th>

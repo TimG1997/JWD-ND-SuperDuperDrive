@@ -14,11 +14,29 @@ public class NotesTab extends HomePage {
     @FindBy(id = "add-a-new-note-button")
     private WebElement addANewNoteButton;
 
+    @FindBy(id = "btnEditNote")
+    private WebElement editNoteButton;
+
+    @FindBy(id = "buttonNoteDelete")
+    private WebElement buttonNoteDelete;
+
     @FindBy(id = "notesTable")
     private WebElement notesTable;
 
     public NotesTab(WebDriver driver) {
         super(driver);
+    }
+
+    public AddNoteModal clickEditNoteButton(){
+        WebDriverWait wait = new WebDriverWait(getDriver(), 2);
+        wait.until(ExpectedConditions.elementToBeClickable(this.editNoteButton)).click();
+        return new AddNoteModal(getDriver());
+    }
+
+    public ResultPage clickDeleteNoteButton(){
+        WebDriverWait wait = new WebDriverWait(getDriver(), 2);
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonNoteDelete)).click();
+        return new ResultPage(getDriver());
     }
 
     public AddNoteModal clickAddNoteButton(){
