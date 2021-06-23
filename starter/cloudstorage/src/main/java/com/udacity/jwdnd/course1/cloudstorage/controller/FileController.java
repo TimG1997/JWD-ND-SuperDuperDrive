@@ -31,6 +31,7 @@ public class FileController {
     private static final String FILE_UPLOAD_ERROR = "File could not be uploaded.";
     private static final String FILE_WAS_DELETED = "File was deleted";
     private static final String FILE_DELETE_ERROR = "Error deleting file appeared.";
+    public static final String FILE_ALREADY_EXISTS = "File already exists";
 
     private final FileService fileService;
     private final UserService userService;
@@ -46,12 +47,26 @@ public class FileController {
 
         if (multipartFile.isEmpty()) {
             errors.add(NO_FILE_PROVIDED);
+            model.addAttribute(ERROR_FLAG, true);
+            model.addAttribute(ERRORS_LIST, errors);
 
             LOG.warn(NO_FILE_PROVIDED);
+            return "result";
         }
 
         Integer userId = userService.getUser(auth.getName()).getId();
         try {
+            boolean fileAlreadyExists = fileService.getFile(multipartFile.getOriginalFilename(), userId) != null;
+
+            if(fileAlreadyExists){
+                errors.add(FILE_ALREADY_EXISTS);
+                model.addAttribute(ERROR_FLAG, true);
+                model.addAttribute(ERRORS_LIST, errors);
+
+                LOG.warn(FILE_ALREADY_EXISTS);
+                return "result";
+            }
+
             File file = new File(multipartFile.getOriginalFilename(), multipartFile.getSize(), multipartFile.getContentType(), multipartFile.getBytes(), userId);
             boolean fileUploadSuccessful = fileService.addFile(file);
 
