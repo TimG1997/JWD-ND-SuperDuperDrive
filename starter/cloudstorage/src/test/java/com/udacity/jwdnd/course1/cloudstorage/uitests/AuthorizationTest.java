@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage;
+package com.udacity.jwdnd.course1.cloudstorage.uitests;
 
 import com.udacity.jwdnd.course1.cloudstorage.page.LoginPage;
 import com.udacity.jwdnd.course1.cloudstorage.page.SignUpPage;

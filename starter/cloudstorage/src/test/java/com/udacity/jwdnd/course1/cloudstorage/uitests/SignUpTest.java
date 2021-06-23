@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage;
+package com.udacity.jwdnd.course1.cloudstorage.uitests;
 
 import com.udacity.jwdnd.course1.cloudstorage.page.HomePage;
 import com.udacity.jwdnd.course1.cloudstorage.page.LoginPage;
@@ -13,8 +13,7 @@ public class SignUpTest extends AbstractUiTest {
 
     private static final String FIRST_NAME = "firstname";
     private static final String LAST_NAME = "lastname";
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
+
 
     private NavigationHelper navigationHelper;
 

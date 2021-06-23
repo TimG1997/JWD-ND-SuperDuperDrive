@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage;
+package com.udacity.jwdnd.course1.cloudstorage.uitests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
@@ -11,6 +11,9 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AbstractUiTest {
+
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
 
     @LocalServerPort
     private Integer port;
