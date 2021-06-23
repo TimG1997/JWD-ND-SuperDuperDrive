@@ -2,6 +2,7 @@ package com.udacity.jwdnd.course1.cloudstorage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,9 +26,11 @@ public abstract class AbstractUiTest {
         baseUrl = "http://localhost:";
     }
 
-    @AfterAll
-    public static void afterAll() {
-        driver.quit();
+    @AfterEach
+    public void afterEach() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     public Integer getPort() {

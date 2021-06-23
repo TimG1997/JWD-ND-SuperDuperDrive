@@ -37,8 +37,12 @@ public class SignUpPage extends AbstractPage{
         this.signUpButton.click();
     }
 
-    public void clickOnSignUpSuccessLoginLink(){
+    public LoginPage clickOnSignUpSuccessLoginLink(){
         this.signupSuccessLoginLink.click();
+        return new LoginPage(getDriver());
     }
 
+    public WebElement getUsernameInput() {
+        return usernameInput;
+    }
 }

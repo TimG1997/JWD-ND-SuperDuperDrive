@@ -19,9 +19,14 @@ public class LoginPage extends AbstractPage {
         super(driver);
     }
 
-    public void login(String username, String password){
+    public HomePage login(String username, String password){
         this.usernameInput.sendKeys(username);
         this.passwordInput.sendKeys(password);
         this.loginButton.click();
+        return new HomePage(getDriver());
+    }
+
+    public WebElement getUsernameInput() {
+        return usernameInput;
     }
 }

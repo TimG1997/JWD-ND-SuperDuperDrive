@@ -5,8 +5,15 @@ import org.openqa.selenium.support.PageFactory;
 
 public abstract class AbstractPage {
 
-    public AbstractPage(WebDriver driver){
+    private WebDriver driver;
+
+    public AbstractPage(WebDriver driver)
+    {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
+    public WebDriver getDriver() {
+        return driver;
+    }
 }
