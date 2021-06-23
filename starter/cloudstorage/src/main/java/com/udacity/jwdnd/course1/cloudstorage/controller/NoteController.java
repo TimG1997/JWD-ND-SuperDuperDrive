@@ -122,7 +122,7 @@ public class NoteController {
     }
 
     private void updateNote(NoteForm newNote, Model model, Integer userId) {
-        Note noteToUpdate = new Note(newNote.getId(), newNote.getDescription(), newNote.getTitle(), userId);
+        Note noteToUpdate = new Note(newNote.getId(), newNote.getTitle(), newNote.getDescription(), userId);
         boolean updateWasSuccessful = this.noteService.updateNote(noteToUpdate);
 
         if (updateWasSuccessful) {
