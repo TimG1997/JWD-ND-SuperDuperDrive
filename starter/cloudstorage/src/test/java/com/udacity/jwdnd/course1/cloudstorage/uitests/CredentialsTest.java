@@ -6,8 +6,6 @@ import com.udacity.jwdnd.course1.cloudstorage.page.modal.AddCredentialsModal;
 import com.udacity.jwdnd.course1.cloudstorage.page.tab.CredentialsTab;
 import com.udacity.jwdnd.course1.cloudstorage.utils.NavigationHelper;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.*;
 

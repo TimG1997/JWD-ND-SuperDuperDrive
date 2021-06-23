@@ -26,6 +26,8 @@ public class AuthorizationTest extends AbstractUiTest {
         assertTrue(loginPage.getUsernameInput().isDisplayed());
 
         this.navigationHelper.goToHomePage();
+
+        // check wether redirect to login page occured
         assertTrue(loginPage.getUsernameInput().isDisplayed());
     }
 }

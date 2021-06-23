@@ -3,6 +3,8 @@ package com.udacity.jwdnd.course1.cloudstorage.page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignUpPage extends AbstractPage{
 
@@ -38,7 +40,8 @@ public class SignUpPage extends AbstractPage{
     }
 
     public LoginPage clickOnSignUpSuccessLoginLink(){
-        this.signupSuccessLoginLink.click();
+        WebDriverWait wait = new WebDriverWait(getDriver(), 2);
+        wait.until(ExpectedConditions.elementToBeClickable(this.signupSuccessLoginLink)).click();
         return new LoginPage(getDriver());
     }
 

@@ -7,6 +7,7 @@ import com.udacity.jwdnd.course1.cloudstorage.page.tab.NotesTab;
 import com.udacity.jwdnd.course1.cloudstorage.utils.NavigationHelper;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.TimeoutException;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
